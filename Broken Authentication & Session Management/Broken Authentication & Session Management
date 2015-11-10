@@ -1,0 +1,39 @@
+#DVWA vuln app
+
+#https://portswigger.net/burp/help/proxy_options.html
+
+#https://support.portswigger.net/customer/portal/articles/1783075-installing-burp-s-ca-certificate-in-your-browser
+
+#https://portswigger.net/burp/samplereport/BurpScannerSampleReport.html
+
+#https://www.owasp.org/index.php/Broken_Authentication_and_Session_Management
+
+#Mutillidae vuln app
+
+#webgoat vuln app
+
+#gameover iso contains mutillidae,webgoat etc.,
+
+
+
+
+1) Bruteforce using Burpsuite
+
+        --> Capture the code with Burpsuite
+        --> Right Click and send to Intruder
+        --> Select Positions tab and check the code captured. Then Select attack method as given below. Then Press -->clear button && select the 		    username value and password value alone.Click on Add.if 1 payload to be used then use 'sniper' or ' battering ram' attack method and if 2 	          payloads needs to be used for example user.list and pwd.list then 'pitch fork' & 'cluster bomb' attack method can be used. The difference 		    between sniper and battering ram is that the sniper performs less permutations and combinations compared to battering ram.
+        --> Select Payloads tab,select the number of payload sets and specify the payloads in Payload OPtions ---> Load -->path to payload.
+        --> Select options tab and mention the time period in milliseconds to perform bruteforcing after the specified time. This is necessary if 		    there is an account lockout policy.
+        --> Go to Intruder option --> start attack
+        --> To check the results go to Results tab. When the correct username and password is encountered the length changes. So Keep Looking :p
+
+
+2) Session Management Related Issues
+
+        --> To remember the identity of user you need session.
+        --> SID (Session ID) not destroyed, SID time-out doesnt happen, and SID is guessable.
+        --> Session Fixation 
+        --> Session hijacking
+        --> Back Button Browsing
+        --> Session Guessing
+

@@ -1,0 +1,38 @@
+#DVWA Vuln APP
+
+#https://www.owasp.org/index.php/Testing_for_Remote_File_Inclusion
+
+
+
+RFI - Trying to include remote files into your Application.
+
+
+   e.g:-  eg: 192.168.0.161/dvwa/vulnerabilities/fi/?page=include.php
+
+             where " /?page= " is an inclusion parameter that can be used to exploit if vulnerable.
+
+          i.e., 
+
+             192.168.0.161/dvwa/vulnerabilities/fi/?page=https://www.gmail.com
+ 
+
+               we know that gmail is mail service which is included remotely.
+
+
+
+Kali linux default Backdoors use for inclusions
+
+
+File System --> usr --> share --> webshell
+
+
+Fixes: 
+
+1) Strong Validations
+
+2) Never reveal paths. eg: while uploading files dont reveal paths.
+
+3) Validate extensions of file, size of files and MIME type of file.
+
+
+

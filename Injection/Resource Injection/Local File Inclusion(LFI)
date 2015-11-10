@@ -1,0 +1,33 @@
+#DVWA Vuln APP
+
+#https://www.owasp.org/index.php/Testing_for_Local_File_Inclusion
+
+#https://www.owasp.org/index.php/Path_Traversal
+
+#https://www.owasp.org/index.php/File_System#Path_traversal
+
+
+
+
+LFI - Trying to include local files into your Application.
+
+     eg: 192.168.0.161/dvwa/vulnerabilities/fi/?page=include.php
+
+             where " /?page= " is an inclusion parameter that can be used to exploit if vulnerable.
+
+          i.e., 
+
+         
+         192.168.0.161/dvwa/vulnerabilities/fi/?page=../../../../../etc/passwd   (since base machine is LINUX)
+
+
+              where " ../../../../../etc/passwd" based on linux directory structures.
+
+
+Fixes: 
+
+1) Strong Validations
+
+2) Never reveal paths. eg: while uploading files dont reveal paths.
+
+3) Validate extensions of file, size of files and MIME type of file.

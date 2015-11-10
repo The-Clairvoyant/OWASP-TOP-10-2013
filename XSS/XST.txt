@@ -1,0 +1,27 @@
+#Use Webgoat for practice
+
+#Use Badstore Vuln app for practice
+
+#https://www.owasp.org/index.php/Cross_Site_Tracing
+#https://www.owasp.org/index.php/Test_HTTP_Methods_%28OTG-CONFIG-006%29
+
+
+#https://devcentral.f5.com/articles/irule-security-101-09-command-execution
+
+
+
+A Cross-Site Tracing (XST) attack involves the use of Cross-site Scripting (XSS) and the TRACE or TRACK HTTP methods.
+
+
+Tools
+
+    NetCat - http://nc110.sourceforge.net
+    cURL - http://curl.haxx.se/
+    nmap http-methods NSE script - https://nmap.org/nsedoc/scripts/http-methods.html
+
+
+  
+
+
+
+

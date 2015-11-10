@@ -1,0 +1,38 @@
+XSS Mitigations
+
+1) Use InnerText - by default, encoding is performed. (always use this)
+   Use InnerHtml - by default, no encoding is performed.
+
+2) Use Input & Output Validations.
+
+3) If .Net then use Anti-XSS library.
+
+4) If Java, then use Jsoup Library.
+
+5) Use Output Encoding.
+
+6) Use Escaping.
+
+7) No Blacklisting.
+
+8) Use request validation. (For eg. In .Net , --> xml configuration page --> <configuration>
+                      								<system.web>
+    											<pages validateRequest="false" />
+  										</system.web>
+									     </configuration>
+  
+
+9) Use the cookie property i.e., HttpOnly & Secure. (For eg. In java if HttpOnly="true" then No javascript can access the cookie value and when  	accessed it gives a NULL value thus protecting the cookie from being stolen. This flag was invented by Microsoft. & if the cookies are  		declared as "Secure" then the cookie will be in encrypted format.)
+
+                    Even though above method is secure it fails against XST(Cross-Site Tracing) i.e., if HttpTrace = Enabled (Various Http options 	               are Put,Delete,options,trace etc.,) then there is possibility of stealing the cookie though HttpOnly is enabled.Thus in order to 			    secure the web app from XSS & XST, use HttpOnly = "true"  and HttpTrace ="false/diabled". For more safety do disable 		            connect,put,delete,trace methods in HTTP protocol.
+
+
+
+#http://jsoup.org/cookbook/
+
+#https://msdn.microsoft.com/en-us/library/System.Web.UI.Page_methods%28v=vs.110%29.aspx
+
+#https://msdn.microsoft.com/en-us/library/0ke7bxeh%28v=vs.110%29.aspx
+
+#https://msdn.microsoft.com/en-us/library/vstudio/hh882339%28v=vs.100%29.aspx
+

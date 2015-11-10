@@ -1,0 +1,27 @@
+#DVWA Vuln APP for practice
+
+#https://www.owasp.org/index.php/Testing_for_Command_Injection_%28OTG-INPVAL-013%29
+
+#https://www.owasp.org/index.php/Injection_Flaws
+
+
+
+OS Injection - Inserting malicious OS commands to exploit the OS.
+  
+            Also known as Command Injection. 
+
+        eg: if 'shell_exec' is used in PHP without any validation then an OS commands can be executed throught it i.e., 
+
+                               1)  ;cat /etc/passwd    - Here ';' is used to terminate previous developer based command. Similar to " ' " used to     		                                                 break developers code in sql injection.
+
+                               2)  ;ls
+                 
+                               3) 
+
+
+
+
+Fixes :
+
+
+  1) Strong Validation
